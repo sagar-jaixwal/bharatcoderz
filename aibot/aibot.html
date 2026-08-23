@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chatbot Assistant</title>
+<style>
+  /* ============================================
+     RESET & BASE
+     ============================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ============================================
+     CHATBOT CONTAINER
+     ============================================ */
+  .chatbot-wrapper {
+    position: relative;
+    width: 340px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============================================
+     SHADOW
+     ============================================ */
+  .chatbot-shadow {
+    position: absolute;
+    bottom: 30px;
+    width: 220px;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: shadowPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes shadowPulse {
+    0%, 100% { transform: scaleX(1); opacity: 1; }
+    50% { transform: scaleX(0.92); opacity: 0.7; }
+  }
+
+  /* ============================================
+     BODY GROUP (for head tilt)
+     ============================================ */
+  .chatbot-body-group {
+    position: relative;
+    animation: idleFloat 4s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+
+  @keyframes idleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* ============================================
+     MAIN BODY
+     ============================================ */
+  .chatbot-body {
+    position: relative;
+    width: 260px;
+    height: 240px;
+    background: linear-gradient(145deg, #ffffff 0%, #e8e8e8 40%, #d0d0d0 100%);
+    border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+    box-shadow:
+      inset 0 -8px 20px rgba(0,0,0,0.08),
+      inset 0 4px 12px rgba(255,255,255,0.9),
+      0 12px 40px rgba(0,0,0,0.1),
+      0 4px 12px rgba(0,0,0,0.06);
+    z-index: 2;
+  }
+
+  /* ============================================
+     EARS
+     ============================================ */
+  .ear {
+    position: absolute;
+    width: 55px;
+    height: 50px;
+    background: linear-gradient(145deg, #ffffff 0%, #e0e0e0 100%);
+    border-radius: 50% 50% 30% 30%;
+    top: -28px;
+    z-index: 1;
+    box-shadow:
+      inset 0 3px 8px rgba(255,255,255,0.8),
+      0 -2px 6px rgba(0,0,0,0.04);
+  }
+
+  .ear-left {
+    left: 42px;
+    transform: rotate(-18deg);
+  }
+
+  .ear-right {
+    right: 42px;
+    transform: rotate(18deg);
+  }
+
+  .ear-inner {
+    position: absolute;
+    width: 30px;
+    height: 26px;
+    background: linear-gradient(145deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 50% 50% 30% 30%;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ============================================
+     FACE SCREEN
+     ============================================ */
+  .face-screen {
+    position: absolute;
+    width: 200px;
+    height: 155px;
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 30%, #0f0f1a 100%);
+    border-radius: 42% 42% 40% 40% / 45% 45% 38% 38%;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+      inset 0 2px 8px rgba(0,0,0,0.5),
+      inset 0 -2px 6px rgba(255,255,255,0.03),
+      0 2px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 3;
+  }
+
+  .face-screen::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+    border-radius: 50%;
+    transform: rotate(-15deg);
+  }
+
+  /* ============================================
+     EYES
+     ============================================ */
+  .eye {
+    position: absolute;
+    width: 42px;
+    height: 38px;
+    top: 42px;
+    z-index: 4;
+  }
+
+  .eye-left { left: 48px; }
+  .eye-right { right: 48px; }
+
+  .eye-pixel {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(255,255,255,0.4), 0 0 4px rgba(255,255,255,0.6);
+  }
+
+  /* Pixel grid effect */
+  .eye-pixel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 3px
+    );
+  }
+
+  .eye-pixel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.05) 2px,
+      rgba(0,0,0,0.05) 3px
+    );
+  }
+
+  /* Blink animation */
+  .eye.blinking .eye-pixel {
+    animation: blink 0.15s ease-in-out;
+  }
+
+  @keyframes blink {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.05); }
+  }
+
+  /* Thinking eye state */
+  .eye.thinking .eye-pixel {
+    animation: thinkPulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes thinkPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.95); }
+  }
+
+  /* Happy eye state - curved */
+  .eye.happy .eye-pixel {
+    border-radius: 6px 6px 20px 20px;
+    height: 20px;
+    top: 10px;
+    transition: all 0.3s ease;
+  }
+
+  /* Love eye state */
+  .eye.love .eye-pixel {
+    border-radius: 50%;
+    background: #ff6b9d;
+    box-shadow: 0 0 15px rgba(255,107,157,0.6);
+    transition: all 0.3s ease;
+  }
+
+  /* ============================================
+     MOUTH
+     ============================================ */
+  .mouth {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 16px;
+    z-index: 4;
+  }
+
+  .mouth-shape {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 0 0 25px 25px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    transition: all 0.2s ease;
+  }
+
+  .mouth-shape::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 3px
+    );
+  }
+
+  /* Speaking animation */
+  .mouth.speaking .mouth-shape {
+    animation: speak 0.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes speak {
+    0% { height: 10px; border-radius: 0 0 20px 20px; }
+    100% { height: 22px; border-radius: 0 0 25px 25px; }
+  }
+
+  /* Happy mouth */
+  .mouth.happy .mouth-shape {
+    width: 60px;
+    height: 18px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  /* Thinking mouth - small dot */
+  .mouth.thinking .mouth-shape {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  /* Hang mouth - flat line */
+  .mouth.hang .mouth-shape {
+    width: 30px;
+    height: 4px;
+    border-radius: 2px;
+    background: #aaaaaa;
+  }
+
+  /* ============================================
+     HANDS
+     ============================================ */
+  .hand {
+    position: absolute;
+    width: 55px;
+    height: 80px;
+    background: linear-gradient(145deg, #ffffff 0%, #e0e0e0 100%);
+    border-radius: 50%;
+    top: 80px;
+    z-index: 1;
+    box-shadow:
+      inset 0 3px 8px rgba(255,255,255,0.8),
+      0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .hand-left {
+    left: -30px;
+    transform: rotate(25deg);
+    animation: handFloatLeft 3s ease-in-out infinite;
+  }
+
+  .hand-right {
+    right: -30px;
+    transform: rotate(-25deg);
+    animation: handFloatRight 3s ease-in-out infinite;
+  }
+
+  @keyframes handFloatLeft {
+    0%, 100% { transform: rotate(25deg) translateY(0); }
+    50% { transform: rotate(20deg) translateY(-4px); }
+  }
+
+  @keyframes handFloatRight {
+    0%, 100% { transform: rotate(-25deg) translateY(0); }
+    50% { transform: rotate(-20deg) translateY(-4px); }
+  }
+
+  /* Wave animation */
+  .hand.waving {
+    animation: wave 0.6s ease-in-out infinite alternate !important;
+  }
+
+  .hand-left.waving {
+    animation: waveLeft 0.6s ease-in-out infinite alternate !important;
+  }
+
+  @keyframes waveLeft {
+    0% { transform: rotate(25deg) translateY(0); }
+    100% { transform: rotate(5deg) translateY(-15px); }
+  }
+
+  @keyframes waveRight {
+    0% { transform: rotate(-25deg) translateY(0); }
+    100% { transform: rotate(-5deg) translateY(-15px); }
+  }
+
+  /* ============================================
+     FLOATING HEARTS
+     ============================================ */
+  .hearts-container {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 150px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .floating-heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: heartFloat 2s ease-out forwards;
+  }
+
+  @keyframes heartFloat {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.5) rotate(0deg);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(-20px) scale(1) rotate(-10deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-120px) scale(0.3) rotate(20deg);
+    }
+  }
+
+  /* ============================================
+     THINKING INDICATOR
+     ============================================ */
+  .thinking-dots {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .thinking-dots.active {
+    display: flex;
+  }
+
+  .thinking-dot {
+    width: 8px;
+    height: 8px;
+    background: #6c63ff;
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite;
+  }
+
+  .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+  .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ============================================
+     SPEECH BUBBLE
+     ============================================ */
+  .speech-bubble {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: white;
+    padding: 12px 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .speech-bubble.visible {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+  }
+
+  /* ============================================
+     STATE: HANG / FREEZE
+     ============================================ */
+  .chatbot-body-group.hang {
+    animation: none !important;
+  }
+
+  .chatbot-body-group.hang .hand {
+    animation: none !important;
+  }
+
+  .chatbot-body-group.hang .chatbot-shadow {
+    animation: none !important;
+  }
+
+  .hang-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ff9800;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+    z-index: 20;
+  }
+
+  .hang-indicator.active {
+    display: block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ============================================
+     HEAD TILT ANIMATIONS
+     ============================================ */
+  .chatbot-body-group.tilt-left {
+    animation: tiltLeft 2s ease-in-out;
+  }
+
+  .chatbot-body-group.tilt-right {
+    animation: tiltRight 2s ease-in-out;
+  }
+
+  @keyframes tiltLeft {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-5deg); }
+  }
+
+  @keyframes tiltRight {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  /* ============================================
+     LISTENING STATE
+     ============================================ */
+  .chatbot-body-group.listening .face-screen {
+    box-shadow:
+      inset 0 2px 8px rgba(0,0,0,0.5),
+      0 0 20px rgba(108,99,255,0.15);
+  }
+
+  .chatbot-body-group.listening .eye-pixel {
+    box-shadow: 0 0 15px rgba(108,99,255,0.5), 0 0 5px rgba(108,99,255,0.7);
+  }
+
+  /* ============================================
+     INTERACTION BUTTONS (Demo)
+     ============================================ */
+  .controls {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+  }
+
+  .controls button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #6c63ff 0%, #5a52d5 100%);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(108,99,255,0.3);
+  }
+
+  .controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108,99,255,0.4);
+  }
+
+  .controls button:active {
+    transform: translateY(0);
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 480px) {
+    .chatbot-wrapper {
+      transform: scale(0.8);
+    }
+    .controls {
+      bottom: 10px;
+    }
+    .controls button {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="chatbot-wrapper" id="chatbot">
+  <!-- Speech Bubble -->
+  <div class="speech-bubble" id="speechBubble">Hey! I'm your AI assistant. How can I help? 😊</div>
+
+  <!-- Hang Indicator -->
+  <div class="hang-indicator" id="hangIndicator"></div>
+
+  <!-- Hearts Container -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- Main Character -->
+  <div class="chatbot-body-group" id="bodyGroup">
+    <!-- Shadow -->
+    <div class="chatbot-shadow"></div>
+
+    <!-- Body -->
+    <div class="chatbot-body">
+      <!-- Ears -->
+      <div class="ear ear-left"><div class="ear-inner"></div></div>
+      <div class="ear ear-right"><div class="ear-inner"></div></div>
+
+      <!-- Face Screen -->
+      <div class="face-screen">
+        <!-- Eyes -->
+        <div class="eye eye-left" id="eyeLeft">
+          <div class="eye-pixel"></div>
+        </div>
+        <div class="eye eye-right" id="eyeRight">
+          <div class="eye-pixel"></div>
+        </div>
+
+        <!-- Mouth -->
+        <div class="mouth" id="mouth">
+          <div class="mouth-shape"></div>
+        </div>
+      </div>
+
+      <!-- Hands -->
+      <div class="hand hand-left" id="handLeft"></div>
+      <div class="hand hand-right" id="handRight"></div>
+    </div>
+  </div>
+
+  <!-- Thinking Dots -->
+  <div class="thinking-dots" id="thinkingDots">
+    <div class="thinking-dot"></div>
+    <div class="thinking-dot"></div>
+    <div class="thinking-dot"></div>
+  </div>
+</div>
+
+<!-- Demo Controls -->
+<div class="controls">
+  <button onclick="chatbot.greet()">👋 Greet</button>
+  <button onclick="chatbot.askQuestion()">❓ Ask Question</button>
+  <button onclick="chatbot.saySomethingFunny()">😄 Funny</button>
+  <button onclick="chatbot.showLove()">❤️ Love</button>
+  <button onclick="chatbot.triggerHang()">🤔 Hang Moment</button>
+  <button onclick="chatbot.setIdle()">😴 Idle</button>
+</div>
+
+<script>
+// ============================================
+// CHATBOT ANIMATION ENGINE
+// ============================================
+const chatbot = (() => {
+  // DOM Elements
+  const bodyGroup = document.getElementById('bodyGroup');
+  const eyeLeft = document.getElementById('eyeLeft');
+  const eyeRight = document.getElementById('eyeRight');
+  const mouth = document.getElementById('mouth');
+  const handLeft = document.getElementById('handLeft');
+  const handRight = document.getElementById('handRight');
+  const speechBubble = document.getElementById('speechBubble');
+  const thinkingDots = document.getElementById('thinkingDots');
+  const hangIndicator = document.getElementById('hangIndicator');
+  const heartsContainer = document.getElementById('heartsContainer');
+
+  // State
+  let currentState = 'idle';
+  let blinkInterval;
+  let idleTimeout;
+  let hangTimeout;
+  let isSpeaking = false;
+  let speechTimeout;
+
+  // ==========================================
+  // BLINK SYSTEM
+  // ==========================================
+  function blink() {
+    if (currentState === 'hang') return;
+    eyeLeft.classList.add('blinking');
+    eyeRight.classList.add('blinking');
+    setTimeout(() => {
+      eyeLeft.classList.remove('blinking');
+      eyeRight.classList.remove('blinking');
+    }, 150);
+  }
+
+  function startBlinking() {
+    blinkInterval = setInterval(() => {
+      if (Math.random() < 0.3) {
+        blink();
+        // Sometimes double blink
+        if (Math.random() < 0.2) {
+          setTimeout(blink, 200);
+        }
+      }
+    }, 2500);
+  }
+
+  // ==========================================
+  // HEAD MOVEMENT
+  // ==========================================
+  function subtleHeadTilt() {
+    if (currentState === 'hang' || currentState === 'speaking') return;
+    const direction = Math.random() < 0.5 ? 'tilt-left' : 'tilt-right';
+    bodyGroup.classList.add(direction);
+    setTimeout(() => {
+      bodyGroup.classList.remove(direction);
+    }, 2000);
+  }
+
+  function startHeadMovement() {
+    setInterval(() => {
+      if (Math.random() < 0.25) {
+        subtleHeadTilt();
+      }
+    }, 4000);
+  }
+
+  // ==========================================
+  // STATE MANAGEMENT
+  // ==========================================
+  function setState(state) {
+    currentState = state;
+    clearAllStates();
+
+    switch (state) {
+      case 'idle':
+        bodyGroup.classList.add('idle');
+        break;
+      case 'listening':
+        bodyGroup.classList.add('listening');
+        break;
+      case 'thinking':
+        eyeLeft.classList.add('thinking');
+        eyeRight.classList.add('thinking');
+        mouth.classList.add('thinking');
+        thinkingDots.classList.add('active');
+        break;
+      case 'speaking':
+        mouth.classList.add('speaking');
+        break;
+      case 'happy':
+        eyeLeft.classList.add('happy');
+        eyeRight.classList.add('happy');
+        mouth.classList.add('happy');
+        break;
+      case 'love':
+        eyeLeft.classList.add('love');
+        eyeRight.classList.add('love');
+        mouth.classList.add('happy');
+        break;
+      case 'hang':
+        bodyGroup.classList.add('hang');
+        mouth.classList.add('hang');
+        hangIndicator.classList.add('active');
+        break;
+    }
+  }
+
+  function clearAllStates() {
+    bodyGroup.className = 'chatbot-body-group';
+    eyeLeft.className = 'eye eye-left';
+    eyeRight.className = 'eye eye-right';
+    mouth.className = 'mouth';
+    handLeft.className = 'hand hand-left';
+    handRight.className = 'hand hand-right';
+    thinkingDots.classList.remove('active');
+    hangIndicator.classList.remove('active');
+  }
+
+  // ==========================================
+  // SPEECH SYSTEM
+  // ==========================================
+  function speak(text, duration = 3000) {
+    if (isSpeaking) return;
+    isSpeaking = true;
+
+    speechBubble.textContent = text;
+    speechBubble.classList.add('visible');
+    setState('speaking');
+
+    // Wave hands while speaking
+    handLeft.classList.add('waving');
+    handRight.classList.add('waving');
+
+    speechTimeout = setTimeout(() => {
+      speechBubble.classList.remove('visible');
+      handLeft.classList.remove('waving');
+      handRight.classList.remove('waving');
+      isSpeaking = false;
+      setState('idle');
+    }, duration);
+  }
+
+  // ==========================================
+  // HEART ANIMATION
+  // ==========================================
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.textContent = ['❤️', '💕', '💖', '✨', '💗'][Math.floor(Math.random() * 5)];
+    heart.style.left = (30 + Math.random() * 140) + 'px';
+    heart.style.top = (20 + Math.random() * 60) + 'px';
+    heart.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2500);
+  }
+
+  function spawnHearts(count = 5) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => spawnHeart(), i * 200);
+    }
+  }
+
+  // ==========================================
+  // PUBLIC API
+  // ==========================================
+
+  // Greet the user
+  function greet() {
+    clearTimeout(idleTimeout);
+    setState('listening');
+
+    setTimeout(() => {
+      blink();
+      setTimeout(() => {
+        setState('happy');
+        speak("Hey! I'm your AI assistant. How can I help? 😊", 3500);
+      }, 400);
+    }, 300);
+  }
+
+  // Simulate answering a question
+  function askQuestion() {
+    clearTimeout(idleTimeout);
+    setState('listening');
+
+    setTimeout(() => {
+      setState('thinking');
+      speak("Hmm, let me think about that...", 1500);
+
+      setTimeout(() => {
+        setState('speaking');
+        speak("Great question! Here's what I found... 🎯", 3000);
+      }, 2000);
+    }, 500);
+  }
+
+  // Say something funny
+  function saySomethingFunny() {
+    clearTimeout(idleTimeout);
+    setState('happy');
+    speak("Why do programmers prefer dark mode? Because light attracts bugs! 😄", 4000);
+    setTimeout(() => spawnHearts(3), 1000);
+  }
+
+  // Show love
+  function showLove() {
+    clearTimeout(idleTimeout);
+    setState('love');
+    speak("You're awesome! Thanks for chatting with me! 💕", 3000);
+    spawnHearts(8);
+  }
+
+  // Trigger hang/freeze moment
+  function triggerHang() {
+    clearTimeout(idleTimeout);
+    setState('hang');
+
+    hangTimeout = setTimeout(() => {
+      setState('idle');
+      blink();
+      speak("Oops! Got stuck for a moment there! 😅 I'm back now!", 3000);
+    }, 1500 + Math.random() * 1000);
+  }
+
+  // Set idle state
+  function setIdle() {
+    clearTimeout(idleTimeout);
+    setState('idle');
+    scheduleIdleBehaviors();
+  }
+
+  // ==========================================
+  // IDLE BEHAVIORS
+  // ==========================================
+  function scheduleIdleBehaviors() {
+    // Random hang moment (very rare)
+    const hangDelay = 15000 + Math.random() * 30000;
+    hangTimeout = setTimeout(() => {
+      if (currentState === 'idle' && Math.random() < 0.15) {
+        triggerHang();
+      }
+      scheduleIdleBehaviors();
+    }, hangDelay);
+
+    // Random smile during idle
+    const smileDelay = 8000 + Math.random() * 15000;
+    idleTimeout = setTimeout(() => {
+      if (currentState === 'idle') {
+        setState('happy');
+        setTimeout(() => setState('idle'), 2000);
+      }
+      scheduleIdleBehaviors();
+    }, smileDelay);
+  }
+
+  // ==========================================
+  // RANDOM HANG TRIGGER (personality feature)
+  // ==========================================
+  function startRandomHangTrigger() {
+    setInterval(() => {
+      if (currentState === 'idle' && Math.random() < 0.08) {
+        triggerHang();
+      }
+    }, 20000);
+  }
+
+  // ==========================================
+  // INITIALIZATION
+  // ==========================================
+  function init() {
+    startBlinking();
+    startHeadMovement();
+    startRandomHangTrigger();
+
+    // Initial greeting after a short delay
+    setTimeout(() => {
+      greet();
+    }, 1000);
+
+    // Start idle behaviors
+    setTimeout(() => {
+      scheduleIdleBehaviors();
+    }, 8000);
+  }
+
+  // Start on load
+  window.addEventListener('load', init);
+
+  // Public API
+  return {
+    greet,
+    askQuestion,
+    saySomethingFunny,
+    showLove,
+    triggerHang,
+    setIdle,
+    speak,
+    setState,
+    spawnHearts
+  };
+})();
+</script>
+
+</body>
+</html>

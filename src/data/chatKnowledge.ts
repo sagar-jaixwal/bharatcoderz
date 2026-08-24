@@ -21,7 +21,7 @@ export const CHAT_KNOWLEDGE: KnowledgeEntry[] = [
     ],
     questionHints: ["Who is BharatCoderz?", "What do you do?"],
     answer:
-      "BharatCoderz is a software and AI services company — but we work as a technology partner, not just a development team. We help global businesses build new products, improve existing systems, and use AI to remove repetitive work. Our focus: understand how your business actually works, what’s slowing you down, and where technology can make a real difference.",
+      "BharatCoderz is a software and AI services company — but we work as a technology partner, not just a development team. We help global businesses build new products, improve existing systems, and use AI to remove repetitive work. Our focus: understand how your business actually works, what’s slowing you down, and where technology can make a real difference. To connect with us, email info@bharatcoderz.com.",
   },
   {
     id: "custom-software",
@@ -131,7 +131,7 @@ export const CHAT_KNOWLEDGE: KnowledgeEntry[] = [
     ],
     questionHints: ["How do we get started?", "Can we have a chat?"],
     answer:
-      "Let’s have a chat. Whether you already have a detailed project or just an idea and aren’t sure where to start — that’s fine. Tell us what you’re trying to achieve. We’ll listen, ask the right questions, and help you work out the next step. No pressure. No unnecessary jargon. You can also open the Contact page on this site to send a message.",
+      "Let’s have a chat. Email us anytime at info@bharatcoderz.com — whether you already have a detailed project or just an idea and aren’t sure where to start. Tell us what you’re trying to achieve. We’ll listen, ask the right questions, and help you work out the next step. No pressure. No unnecessary jargon. You can also use the Contact page on this site.",
   },
   {
     id: "philosophy",
@@ -160,7 +160,7 @@ export const CHAT_QUICK_PROMPTS = [
 ] as const;
 
 export const CHAT_GREETING =
-  "Hi — I’m the BharatCoderz AI assistant. I only answer questions about BharatCoderz: our services, how we work, and partnering with global businesses. Ask me something about the company, or tap a suggestion below.";
+  "Hi — I’m the BharatCoderz AI assistant. I only answer questions about BharatCoderz: our services, how we work, and partnering with global businesses. To connect with the team anytime, email info@bharatcoderz.com — or ask me something below.";
 
 export const CHAT_FALLBACK =
-  "I can only help with BharatCoderz topics — our services, process, and how we partner with global businesses. Tell me what you’re trying to achieve for your business, or visit Contact to chat with the team.";
+  "I can only help with BharatCoderz topics — our services, process, and how we partner with global businesses. Email the team at info@bharatcoderz.com, or visit Contact on this site.";

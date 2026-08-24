@@ -20,12 +20,11 @@ function Layout() {
           <Link className="nav__brand" to="/" aria-label={`${BRAND.name} home`}>
             <img
               className="nav__logo"
-              src="/assets/logo.svg"
-              alt=""
-              width={29}
-              height={29}
+              src="/assets/bharatcoderz-logo.svg"
+              alt={BRAND.name}
+              width={220}
+              height={68}
             />
-            <span className="nav__brand-name">{BRAND.name}</span>
           </Link>
 
           <NavMenu onNavigate={() => setMobileOpen(false)} />

@@ -100,23 +100,11 @@
 }
 
 .nav__logo {
-  width: 29px;
-  height: 29px;
-  overflow: clip;
-}
-
-.nav__logo img,
-.nav__brand > .nav__logo {
-  width: 29px;
-  height: 29px;
-}
-
-.nav__brand-name {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.2vw, 1.2rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
+  display: block;
+  height: clamp(2.6rem, 4.2vw, 3.4rem);
+  width: auto;
+  max-width: min(16rem, 58vw);
+  object-fit: contain;
 }
 
 .nav__pill {
@@ -791,6 +779,20 @@
   margin-top: 1.2rem;
   color: rgba(213, 213, 213, 0.85);
   line-height: 1.5;
+}
+
+.contact-grid__brand a,
+.contact-direct a,
+.contact-form__note a {
+  color: #d7e6ff;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.contact-direct {
+  margin: 1rem 0 0.4rem;
+  font-size: 1.05rem;
+  color: rgba(235, 235, 235, 0.95);
 }
 
 .contact-form {

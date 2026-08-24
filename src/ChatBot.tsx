@@ -6,6 +6,7 @@ import {
   CHAT_GREETING,
   CHAT_QUICK_PROMPTS,
 } from "./data/chatKnowledge";
+import { CONTACT } from "./data/site";
 import { getChatReply } from "./chat/replyEngine";
 import AiBotAvatar, { type AiBotMood } from "./AiBotAvatar";
 
@@ -251,9 +252,11 @@ function ChatBot() {
           </form>
 
           <p className="chatbot__footer">
-            Prefer a human?{" "}
+            Prefer a human? Email{" "}
+            <a href={CONTACT.mailto}>{CONTACT.email}</a>
+            {" · "}
             <Link to="/contact" onClick={() => setOpen(false)}>
-              Contact the team
+              Contact page
             </Link>
           </p>
         </section>

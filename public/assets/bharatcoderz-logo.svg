@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 560" width="1800" height="560">
+  <defs>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#12D8FF"/>
+      <stop offset="38%" stop-color="#1478FF"/>
+      <stop offset="70%" stop-color="#6428F5"/>
+      <stop offset="100%" stop-color="#F20CFF"/>
+    </linearGradient>
+    <linearGradient id="brand2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#16CFFF"/>
+      <stop offset="48%" stop-color="#315BFF"/>
+      <stop offset="100%" stop-color="#E918FF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Icon -->
+  <g transform="translate(40 35)">
+    <!-- futuristic B/profile ribbon -->
+    <path d="M70 38 H275
+             C360 38 405 88 405 151
+             C405 205 378 239 337 260
+             C381 280 405 318 405 374
+             C405 449 351 490 270 490
+             H137
+             L194 425
+             H267
+             C306 425 328 405 328 371
+             C328 337 306 315 267 315
+             H224
+             C207 315 194 305 194 289
+             C194 273 207 262 224 262
+             H267
+             C306 262 328 239 328 202
+             C328 164 305 141 267 141
+             H70
+             C47 141 31 123 31 90
+             C31 58 47 38 70 38 Z"
+          fill="url(#brand)" filter="url(#glow)"/>
+
+    <!-- profile cutout -->
+    <path d="M210 142
+             C235 160 247 182 244 210
+             C242 231 231 247 220 257
+             C214 263 214 269 220 274
+             L233 286 L217 293
+             L229 303 L211 310
+             C196 313 183 305 177 294
+             L177 166 C181 155 193 147 210 142 Z"
+          fill="#050817"/>
+
+    <!-- circuit traces -->
+    <g fill="none" stroke="url(#brand2)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 178 H72"/>
+      <path d="M8 240 H55 L75 260 H150"/>
+      <path d="M28 314 H73 L91 294 H151"/>
+    </g>
+    <g fill="#07112E" stroke="url(#brand2)" stroke-width="8">
+      <circle cx="8" cy="178" r="14"/>
+      <circle cx="8" cy="240" r="14"/>
+      <circle cx="28" cy="314" r="14"/>
+      <circle cx="72" cy="178" r="14"/>
+      <circle cx="150" cy="260" r="14"/>
+      <circle cx="151" cy="294" r="14"/>
+    </g>
+
+    <!-- sparkle -->
+    <path d="M296 315
+             C300 335 308 343 328 347
+             C308 351 300 359 296 379
+             C292 359 284 351 264 347
+             C284 343 292 335 296 315 Z"
+          fill="white"/>
+
+    <!-- lower swoosh -->
+    <path d="M105 405 C86 429 78 451 89 469 C101 489 126 481 151 451 L176 421 C154 426 132 421 105 405 Z"
+          fill="url(#brand2)"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="Inter, Arial, Helvetica, sans-serif" font-weight="800">
+    <text x="505" y="285" font-size="164" letter-spacing="-7" fill="url(#brand2)">BharatCoderz</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="515" y="372"
+        font-family="Inter, Arial, Helvetica, sans-serif"
+        font-size="36"
+        font-weight="600"
+        letter-spacing="15"
+        fill="url(#brand2)">CODE • INNOVATE • ELEVATE</text>
+</svg>

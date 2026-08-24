@@ -1,6 +1,6 @@
 /** Fixed refusal when the user asks for anything outside BharatCoderz. */
 export const OFF_TOPIC_REPLY =
-  "I can only help with BharatCoderz — our services, how we work, and partnering with global businesses. I can’t write general code, tutorials, or handle unrelated requests.\n\nAsk me about custom software, AI & automation, websites/apps, our process, or how to get started. Or visit Contact for a chat with the team.";
+  "I can only help with BharatCoderz — our services, how we work, and partnering with global businesses. I can’t write general code, tutorials, or handle unrelated requests.\n\nAsk me about custom software, AI & automation, websites/apps, our process, or how to get started. To reach the team directly, email info@bharatcoderz.com or visit Contact.";
 
 const OFF_TOPIC_PATTERNS = [
   /\bhello\s*world\b/i,

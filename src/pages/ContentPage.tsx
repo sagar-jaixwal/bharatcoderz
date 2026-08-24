@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BRAND, type PageContent } from "../data/site";
+import { BRAND, CONTACT, type PageContent } from "../data/site";
 
 type ContentPageProps = {
   page: PageContent;
@@ -33,9 +33,9 @@ function ContentPage({ page }: ContentPageProps) {
           <Link className="cta" to="/contact">
             {BRAND.ctaPrimary}
           </Link>
-          <Link className="cta cta--ghost" to="/services">
-            {BRAND.ctaSecondary}
-          </Link>
+          <a className="cta cta--ghost" href={CONTACT.mailto}>
+            {CONTACT.email}
+          </a>
         </div>
       </div>
     </main>

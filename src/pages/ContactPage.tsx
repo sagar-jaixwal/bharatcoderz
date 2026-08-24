@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { BRAND, PAGES } from "../data/site";
+import { BRAND, CONTACT, PAGES } from "../data/site";
 
 function ContactPage() {
   const page = PAGES.contact;
@@ -8,6 +8,17 @@ function ContactPage() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+
+    const subject = encodeURIComponent(`Project enquiry from ${name || "website"}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
+    window.location.href = `${CONTACT.mailto}?subject=${subject}&body=${body}`;
     setSent(true);
   };
 
@@ -22,6 +33,10 @@ function ContactPage() {
           <section className="content-block">
             <h2>{page.sections[0].title}</h2>
             <p>{page.sections[0].body}</p>
+            <p className="contact-direct">
+              Reach us directly:{" "}
+              <a href={CONTACT.mailto}>{CONTACT.email}</a>
+            </p>
             <ul>
               {page.sections[0].points?.map((point) => (
                 <li key={point}>{point}</li>
@@ -31,6 +46,8 @@ function ContactPage() {
               <strong>{BRAND.name}</strong>
               <br />
               {BRAND.footerLine}
+              <br />
+              <a href={CONTACT.mailto}>{CONTACT.email}</a>
             </p>
           </section>
 
@@ -58,13 +75,20 @@ function ContactPage() {
               />
             </label>
             <button className="cta" type="submit">
-              {sent ? "Message noted — we'll be in touch" : BRAND.ctaPrimary}
+              {sent ? "Opening your email…" : BRAND.ctaPrimary}
             </button>
             {sent ? (
               <p className="contact-form__note">
-                Thanks. No pressure from our side — just a clear next step.
+                Your email app should open to {CONTACT.email}. If it doesn’t, write
+                us directly at{" "}
+                <a href={CONTACT.mailto}>{CONTACT.email}</a>.
               </p>
-            ) : null}
+            ) : (
+              <p className="contact-form__note">
+                Or email us straight away:{" "}
+                <a href={CONTACT.mailto}>{CONTACT.email}</a>
+              </p>
+            )}
             <Link className="contact-form__back" to="/">
               Back to home
             </Link>

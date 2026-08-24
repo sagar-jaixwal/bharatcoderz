@@ -31,6 +31,12 @@ export const BRAND = {
   footerLine: "Software Development | AI Solutions | Automation",
 } as const;
 
+/** Primary client contact — use everywhere clients need to connect. */
+export const CONTACT = {
+  email: "info@bharatcoderz.com",
+  mailto: "mailto:info@bharatcoderz.com",
+} as const;
+
 export const NAV_ITEMS: NavItem[] = [
   { id: "services", label: "Services", path: "/services" },
   { id: "approach", label: "How We Work", path: "/how-we-work" },
@@ -170,13 +176,14 @@ export const PAGES: Record<string, PageContent> = {
     title: "Contact",
     eyebrow: "Let's have a chat",
     intro:
-      "Whether you already have a detailed project in mind or you simply have an idea and aren't sure where to start — that's completely fine.",
+      "Whether you already have a detailed project in mind or you simply have an idea and aren't sure where to start — that's completely fine. Email us anytime at info@bharatcoderz.com — we'll get back to you quickly.",
     loadingLabel: "Opening secure channel…",
     sections: [
       {
         title: "Tell us what you're trying to achieve",
         body: "We'll listen, ask the right questions, and help you work out what the next step should be. No pressure. No unnecessary technical jargon. Just a straightforward conversation about your business and how technology can help.",
         points: [
+          "Email: info@bharatcoderz.com",
           "Software Development",
           "AI Solutions",
           "Automation",

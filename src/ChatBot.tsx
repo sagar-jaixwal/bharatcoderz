@@ -139,7 +139,7 @@ function ChatBot() {
           {
             id: uid(),
             role: "bot",
-            text: `${local}\n\n(Tip: add a free Groq API key in .env as GROQ_API_KEY for real AI answers — https://console.groq.com/keys)`,
+            text: `${local}\n\n(Tip: add GROQ_API_KEY in Vercel Environment Variables, or local .env — https://console.groq.com/keys)`,
           },
         ]);
       } else {

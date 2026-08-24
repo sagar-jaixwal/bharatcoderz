@@ -21,7 +21,7 @@ export const CHAT_KNOWLEDGE: KnowledgeEntry[] = [
     ],
     questionHints: ["Who is BharatCoderz?", "What do you do?"],
     answer:
-      "BharatCoderz is a software and AI services company — but we work as a technology partner, not just a development team. We help Australian businesses build new products, improve existing systems, and use AI to remove repetitive work. Our focus: understand how your business actually works, what’s slowing you down, and where technology can make a real difference.",
+      "BharatCoderz is a software and AI services company — but we work as a technology partner, not just a development team. We help global businesses build new products, improve existing systems, and use AI to remove repetitive work. Our focus: understand how your business actually works, what’s slowing you down, and where technology can make a real difference.",
   },
   {
     id: "custom-software",
@@ -95,11 +95,12 @@ export const CHAT_KNOWLEDGE: KnowledgeEntry[] = [
       "We keep the process straightforward:\n1) First, we listen — goals, blockers, customer needs, and what would make life easier.\n2) Then we work out the right solution — custom platform, existing tool, automation, or AI. We’ll tell you what genuinely makes sense, and we don’t build unnecessary features just to make a project bigger.\n3) Then we build — development, testing, and deployment while keeping you involved.\n4) After launch, we’re still here — improvements, new features, maintenance, and helping you get more from what you’ve built.",
   },
   {
-    id: "why-australia",
+    id: "why-global",
     keywords: [
-      "australia",
-      "australian",
-      "overseas",
+      "global",
+      "worldwide",
+      "world",
+      "international",
       "trust",
       "communication",
       "why",
@@ -108,9 +109,9 @@ export const CHAT_KNOWLEDGE: KnowledgeEntry[] = [
       "honest",
       "reliable",
     ],
-    questionHints: ["Why work with BharatCoderz?", "Do you work with Australian businesses?"],
+    questionHints: ["Why work with BharatCoderz?", "Do you work with global businesses?"],
     answer:
-      "We know working with an overseas technology partner only works when communication and trust are taken seriously. That’s why we focus on clear communication (no jargon unless you need it), honest advice, reliable delivery with realistic expectations, long-term thinking, and a real working relationship — you’re not just a ticket number.",
+      "We know working with a global technology partner only works when communication and trust are taken seriously. That’s why we focus on clear communication (no jargon unless you need it), honest advice, reliable delivery with realistic expectations, long-term thinking, and a real working relationship — you’re not just a ticket number.",
   },
   {
     id: "contact",
@@ -154,12 +155,12 @@ export const CHAT_QUICK_PROMPTS = [
   "Do you build custom software?",
   "Can you help with AI automation?",
   "How do you work?",
-  "Why Australian businesses choose you?",
+  "Why global businesses choose you?",
   "How do we get started?",
 ] as const;
 
 export const CHAT_GREETING =
-  "Hi — I’m the BharatCoderz AI assistant. I only answer questions about BharatCoderz: our services, how we work, and partnering with Australian businesses. Ask me something about the company, or tap a suggestion below.";
+  "Hi — I’m the BharatCoderz AI assistant. I only answer questions about BharatCoderz: our services, how we work, and partnering with global businesses. Ask me something about the company, or tap a suggestion below.";
 
 export const CHAT_FALLBACK =
-  "I can only help with BharatCoderz topics — our services, process, and how we partner with Australian businesses. Tell me what you’re trying to achieve for your business, or visit Contact to chat with the team.";
+  "I can only help with BharatCoderz topics — our services, process, and how we partner with global businesses. Tell me what you’re trying to achieve for your business, or visit Contact to chat with the team.";

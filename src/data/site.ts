@@ -21,11 +21,11 @@ export type PageContent = {
 
 export const BRAND = {
   name: "BharatCoderz",
-  tagline: "Software & AI Partner for Australian Businesses",
+  tagline: "Software & AI Partner for Global Businesses",
   badgeNote: "Built around your business",
   headline: ["We Build Technology", "Around Your Business"],
   subtitle:
-    "Custom software, AI automation, and digital products that help Australian businesses work better — without the jargon.",
+    "Custom software, AI automation, and digital products that help global businesses work better — without the jargon.",
   ctaPrimary: "Let's Have a Chat",
   ctaSecondary: "Explore services",
   footerLine: "Software Development | AI Solutions | Automation",
@@ -123,12 +123,12 @@ export const PAGES: Record<string, PageContent> = {
     title: "Company",
     eyebrow: "About BharatCoderz",
     intro:
-      "We're a software and AI services company — but we prefer to work as a technology partner for Australian businesses that want technology to do things better.",
+      "We're a software and AI services company — but we prefer to work as a technology partner for global businesses that want technology to do things better.",
     loadingLabel: "Syncing partner intelligence…",
     sections: [
       {
-        title: "Why Australian businesses work with us",
-        body: "Working with an overseas technology partner only works when communication and trust are taken seriously. That's why we focus heavily on clarity, honesty, and long-term thinking.",
+        title: "Why global businesses work with us",
+        body: "Working with a global technology partner only works when communication and trust are taken seriously. That's why we focus heavily on clarity, honesty, and long-term thinking.",
         points: [
           "Clear communication — no complicated technical language unless you need it",
           "Honest advice — we'll tell you when something is a good idea, and when it isn't",
@@ -180,7 +180,7 @@ export const PAGES: Record<string, PageContent> = {
           "Software Development",
           "AI Solutions",
           "Automation",
-          "Helping Australian businesses build, improve and grow with technology",
+          "Helping global businesses build, improve and grow with technology",
         ],
       },
     ],

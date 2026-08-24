@@ -23,7 +23,7 @@ const CHATTER_LINES = [
   "Custom software? AI? Apps? Tap me!",
   "I'm your BharatCoderz assistant 👋",
   "Let's talk about your project!",
-  "Australian businesses — we've got you",
+  "Global businesses — we've got you",
   "Click me to chat!",
   "How can technology help your business?",
 ];

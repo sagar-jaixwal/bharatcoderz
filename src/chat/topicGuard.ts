@@ -1,6 +1,6 @@
 /** Fixed refusal when the user asks for anything outside BharatCoderz. */
 export const OFF_TOPIC_REPLY =
-  "I can only help with BharatCoderz — our services, how we work, and partnering with Australian businesses. I can’t write general code, tutorials, or handle unrelated requests.\n\nAsk me about custom software, AI & automation, websites/apps, our process, or how to get started. Or visit Contact for a chat with the team.";
+  "I can only help with BharatCoderz — our services, how we work, and partnering with global businesses. I can’t write general code, tutorials, or handle unrelated requests.\n\nAsk me about custom software, AI & automation, websites/apps, our process, or how to get started. Or visit Contact for a chat with the team.";
 
 const OFF_TOPIC_PATTERNS = [
   /\bhello\s*world\b/i,
@@ -13,7 +13,7 @@ const OFF_TOPIC_PATTERNS = [
 
 const COMPANY_PATTERNS = [
   /\bbharat\s*coderz\b/i,
-  /\b(company|service|services|software|automation|partner|australian|australia)\b/i,
+  /\b(company|service|services|software|automation|partner|global|worldwide|world)\b/i,
   /\b(crm|saas|ecommerce|e-commerce|dashboard|api|website|websites|mobile\s*app|web\s*app)\b/i,
   /\b(ai|artificial intelligence|chatbot|workflow|process|how you work|get started|contact|quote|project|business)\b/i,
   /\b(listen|build|launch|maintenance|honest advice|communication)\b/i,

@@ -101,9 +101,9 @@
 
 .nav__logo {
   display: block;
-  height: clamp(2.6rem, 4.2vw, 3.4rem);
+  height: clamp(3.2rem, 5.2vw, 4.2rem);
   width: auto;
-  max-width: min(16rem, 58vw);
+  max-width: min(20rem, 68vw);
   object-fit: contain;
 }
 

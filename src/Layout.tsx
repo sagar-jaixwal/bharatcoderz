@@ -20,10 +20,10 @@ function Layout() {
           <Link className="nav__brand" to="/" aria-label={`${BRAND.name} home`}>
             <img
               className="nav__logo"
-              src="/assets/bharatcoderz-logo.svg"
+              src="/assets/bharatcoderz-logo.png"
               alt={BRAND.name}
-              width={220}
-              height={68}
+              width={280}
+              height={87}
             />
           </Link>
 
